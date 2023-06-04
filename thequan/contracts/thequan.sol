@@ -39,16 +39,6 @@ contract TheQuan {
         uint168[2][]  auditing;
     }
 
-    struct CheckInCache{
-        Magic        formula;
-        uint256      fee;
-        uint168[2]   toVest;
-        uint168[2][] vesting;
-        uint168      reward;
-        uint168      refund;
-        bool         rewarded;
-        uint168      items;
-    }
 
 
     // --- Token Data ---
