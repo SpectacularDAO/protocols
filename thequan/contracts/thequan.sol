@@ -61,7 +61,6 @@ contract TheQuan {
     uint168 public auditPeriod = 21 days;
     uint256 public totalSupply;
     uint256 public allocatedETH;
-    bytes32 public DOMAIN_SEPARATOR;
     bytes32 public constant PERMIT_TYPEHASH = 0x5d47d58eeeff0d09d899baa5faca6c0ac32b6bb20a1749ab96e0a0d6cebe514e;
 
     mapping(address => uint256)                     public balanceOf;
@@ -72,7 +71,6 @@ contract TheQuan {
     mapping(address => mapping(uint256 => Codex))   public spells;
     mapping(address => bool)                        public deities;
     mapping(address => bool)                        public wizards;
-    mapping(address => bool)                        public fairies;
     mapping(address => uint256)                     public nonces;
 
 
