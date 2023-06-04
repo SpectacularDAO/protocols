@@ -35,8 +35,6 @@ contract TheQuan {
     struct MintPermit{
         uint256       mintable;
         MintBooster[] boosters;
-        uint168[2][]  vesting;
-        uint168[2][]  auditing;
     }
 
 
@@ -74,6 +72,9 @@ contract TheQuan {
     event WizardRevoked(address indexed wizard, address incumbent);
     event FairyCommissioned(address indexed wizard, address candidate);
     event FairyDecommissioned(address indexed wizard, address incumbent);
+        uint256[2][]  vesting;
+        uint256[2][]  auditing;
+    }
 
     event Approval(
         address indexed owner,
