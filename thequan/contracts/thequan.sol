@@ -19,11 +19,22 @@ contract TheQuan {
         uint32  circle;
     }
 
+    struct Incantation{
+        address angel;
+        uint16  charm;
+    }
+
     struct Codex{
         uint168 dawn;
         uint168 glow;
         uint32  wave;
         address mage;
+    }
+
+    struct Charge{
+        uint168 cast;
+        uint168 forge;
+        uint168 mint;
     }
 
     struct MintBooster{
