@@ -47,29 +47,6 @@ contract TheQuan {
         uint256       mintable;
         MintBooster[] boosters;
     }
-
-
-
-    // --- Token Data ---
-    string  public constant name     = "The Quan";
-    string  public constant symbol   = "GLMR";
-    string  public constant version  = "1";
-    uint8   public constant decimals = 18;
-    uint168 public auditPeriod = 21 days;
-    uint256 public totalSupply;
-    uint256 public allocatedETH;
-
-    mapping(address => uint256)                     public balanceOf;
-    mapping(address => uint256)                     public accountOf;
-    mapping(address => mapping(address => uint256)) public allowance;
-    mapping(address => MintPermit)                  public allowList;
-    mapping(address => Magic)                       public grimoire;
-    mapping(address => mapping(uint256 => Codex))   public spells;
-    mapping(address => bool)                        public deities;
-    mapping(address => bool)                        public wizards;
-    mapping(address => uint256)                     public nonces;
-
-
     // --- Token Events ---
     event DeityExalted(address indexed wizard, address candidate);
     event DeityDeposed(address indexed wizard, address incumbent);
@@ -81,9 +58,29 @@ contract TheQuan {
         uint256[2][]  auditing;
     }
 
+    // --- Structured Storage ---
+    string  public  constant  name     = "The Quan";
+    string  public  constant  symbol   = "GLMR";
+    string  public  constant  version  = "1";
+    uint8   public  constant  decimals = 18;
     bytes32 private constant  EIP712_DOMAIN   = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
     bytes32 private constant  PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
+    uint168 private auditPeriod = 21 days;
+    uint168 private allocatedETH;
+    uint256 public  totalSupply;
     Charge  private fees = Charge(42000000 gwei, 69000000 gwei, 25000000 gwei);
+    mapping(address => uint256)                     public  balanceOf;
+    mapping(address => uint256)                     private accountOf;
+    mapping(address => mapping(address => uint256)) public  allowance;
+    mapping(address => MintPermit)                  private allowList;
+    mapping(address => Magic)                       private grimoire;
+    mapping(address => bool)                        private wizards;
+    mapping(address => bool)                        private deities;
+    mapping(address => mapping(uint256 => Codex))   private spells;
+    mapping(address => uint256)                     private nonces;
+
+    // --- Events ---
+
     event Approval(
         address indexed owner,
         address indexed spender,
