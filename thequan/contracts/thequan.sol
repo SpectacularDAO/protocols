@@ -65,6 +65,7 @@ contract TheQuan {
     uint8   public  constant  decimals = 18;
     bytes32 private constant  EIP712_DOMAIN   = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
     bytes32 private constant  PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
+    bool    private constant  PROXIED  = true;
     uint168 private auditPeriod = 21 days;
     uint168 private allocatedETH;
     uint256 public  totalSupply;
