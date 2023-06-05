@@ -81,6 +81,7 @@ contract TheQuan {
         uint256[2][]  auditing;
     }
 
+    bytes32 private constant  EIP712_DOMAIN   = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
     bytes32 private constant  PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
     Charge  private fees = Charge(42000000 gwei, 69000000 gwei, 25000000 gwei);
     event Approval(
