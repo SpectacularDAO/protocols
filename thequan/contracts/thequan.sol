@@ -108,13 +108,6 @@ contract TheQuan {
         totalSupply += 21e24;
         allowList[msg.sender].vesting[0] = [uint168(block.timestamp + 420 days), uint168(4e24)];
 
-        DOMAIN_SEPARATOR = keccak256(abi.encode(
-            keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"),
-            keccak256(bytes(name)),
-            keccak256(bytes(version)),
-            block.chainid,
-            address(this)
-        ));
     }
 
     modifier onlyDeities{
