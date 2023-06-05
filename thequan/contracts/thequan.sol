@@ -79,6 +79,8 @@ contract TheQuan {
     mapping(address => bool)                        private deities;
     mapping(address => mapping(uint256 => Codex))   private spells;
     mapping(address => uint256)                     private nonces;
+    mapping(bytes4  => Incantation)                 private wand;
+    bytes4[]                                        private charms;
 
     // --- Events ---
 
