@@ -55,9 +55,6 @@ contract TheQuan {
     string  public constant symbol   = "GLMR";
     string  public constant version  = "1";
     uint8   public constant decimals = 18;
-    uint168 public castFee     = 42000000 gwei;
-    uint168 public forgeFee    = 69000000 gwei;
-    uint168 public mintFee     = 25000000 gwei;
     uint168 public auditPeriod = 21 days;
     uint256 public totalSupply;
     uint256 public allocatedETH;
@@ -85,6 +82,7 @@ contract TheQuan {
         uint256[2][]  auditing;
     }
 
+    Charge  private fees = Charge(42000000 gwei, 69000000 gwei, 25000000 gwei);
     event Approval(
         address indexed owner,
         address indexed spender,
