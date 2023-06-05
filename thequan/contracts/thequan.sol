@@ -46,14 +46,6 @@ contract TheQuan {
     struct MintPermit{
         uint256       mintable;
         MintBooster[] boosters;
-    }
-    // --- Token Events ---
-    event DeityExalted(address indexed wizard, address candidate);
-    event DeityDeposed(address indexed wizard, address incumbent);
-    event WizardInducted(address indexed wizard, address candidate);
-    event WizardRevoked(address indexed wizard, address incumbent);
-    event FairyCommissioned(address indexed wizard, address candidate);
-    event FairyDecommissioned(address indexed wizard, address incumbent);
         uint256[2][]  vesting;
         uint256[2][]  auditing;
     }
@@ -96,101 +88,7 @@ contract TheQuan {
         uint256 amount
     );
 
-    event ETHAllocated(
-        address indexed wizard,
-        address recipient,
-        uint256 amount
-    );
 
-    event Cast(
-        address indexed recipient,
-        address indexed asset,
-        uint256 fee,
-        uint256 mintable
-    );
-
-    event Forged(
-        address indexed recipient,
-        address indexed deity,
-        uint256 fee,
-        uint256 mintable
-    );
-    
-    event CheckedIn(
-        address indexed asset,
-        address indexed holder,
-        uint256 tokenId,
-        uint256 fee
-    );
-
-    event Rewarded(
-        address indexed recipient,
-        uint168 amount
-    );
-
-    event Refunded(
-        address indexed recipient,
-        uint168 amount
-    );
-
-    event Withdrawn(
-        address indexed recipient,
-        uint256 amount
-    );
-
-    event Vested(
-        address indexed recipient,
-        uint168 amount
-    );
-
-    event MintRequested(
-        address indexed requester,
-        uint168 amount,
-        uint256 fee
-    );
-
-    event RedemptionRequested(
-        address indexed requester,
-        uint168 dueDate,
-        uint168 amount
-    );
-
-    event RedemptionCompleted(
-        address indexed requester,
-        address deity,
-        uint168 ETH
-    );
-
-    event Minted(
-        address indexed recipient,
-        address indexed deity,
-        uint168 amount,
-        uint168 GLMR
-    );
-
-    event FeesUpdated(
-        address indexed wizard,
-        uint168 newCastFee, 
-        uint168 newForgeFee, 
-        uint168 newMintFee
-    );
-
-    event GeneratorCalibrated(
-        address indexed asset,
-        address indexed wizard,
-        bool    status,
-        uint168 sparkles,
-        uint168 checkInFee,
-        uint168 surgeUltraBasisPts,
-        uint168 rewardUltraBasisPts,
-        uint168 vestingPeriod,
-        uint32  circle
-    );
-
-    event AuditPeriodSet(
-        address indexed wizard,
-        uint168 period
-    );
     
     // --- Admin Utilities ---
     constructor() {
