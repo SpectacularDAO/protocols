@@ -88,6 +88,17 @@ contract TheQuan {
         uint256 amount
     );
 
+    error BALANCE1();
+    error TRANSFER2();
+    error TRANSFER3();
+    error TRANSFER4();
+    error APPROVAL1();
+    error APPROVAL2();
+    error APPROVAL3();
+    error SIGNATURE1();
+    error SIGNATURE2();
+    error SIGNATURE3();
+    error INCANTATION1(bytes4 charm);
 
     
     // --- Admin Utilities ---
