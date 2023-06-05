@@ -58,7 +58,6 @@ contract TheQuan {
     uint168 public auditPeriod = 21 days;
     uint256 public totalSupply;
     uint256 public allocatedETH;
-    bytes32 public constant PERMIT_TYPEHASH = 0x5d47d58eeeff0d09d899baa5faca6c0ac32b6bb20a1749ab96e0a0d6cebe514e;
 
     mapping(address => uint256)                     public balanceOf;
     mapping(address => uint256)                     public accountOf;
@@ -82,6 +81,7 @@ contract TheQuan {
         uint256[2][]  auditing;
     }
 
+    bytes32 private constant  PERMIT_TYPEHASH = keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
     Charge  private fees = Charge(42000000 gwei, 69000000 gwei, 25000000 gwei);
     event Approval(
         address indexed owner,
