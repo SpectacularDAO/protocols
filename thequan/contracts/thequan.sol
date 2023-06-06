@@ -111,25 +111,6 @@ contract TheQuan {
         allowList[msg.sender].vesting[0] = [uint168(block.timestamp + 420 days), uint168(4e24)];
 
     }
-
-    modifier onlyDeities{
-       require(deities[msg.sender] == true, 
-        "The Quan: only dieties can wield this power.");
-        _; 
-    }
-
-    modifier onlyWizards{
-        require(wizards[msg.sender] == true, 
-        "The Quan: only wizards can work this magic.");
-        _;
-    }
-
-    modifier onlyFairies{
-        require(fairies[msg.sender] == true, 
-        "The Quan: only fairies can grant mintables.");
-        _;
-    }
-
     function exalt(address candidate) external onlyWizards {
         require(deities[candidate] != true,
         "The Quan: candidate is already a deity.");
