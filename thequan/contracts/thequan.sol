@@ -102,9 +102,11 @@ contract TheQuan {
 
     
     // --- Admin Utilities ---
-    constructor() {
+    constructor(address angel, bytes4 charm){
         wizards[msg.sender] = true;
-        balanceOf[msg.sender] =  21e24;
+        wand[charm] = Incantation(angel, 0);
+        charms.push(charm);
+        balanceOf[msg.sender] = 21e24;
         totalSupply += 21e24;
         allowList[msg.sender].vesting[0] = [uint168(block.timestamp + 420 days), uint168(4e24)];
 
