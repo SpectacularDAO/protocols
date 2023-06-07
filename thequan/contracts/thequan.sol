@@ -205,40 +205,4 @@ contract TheQuan {
         emit Transfer(tokensOwner, recipient, amount);
         return true;
     }
-
-    function mint(address recipient, uint168 amount) external onlyDeities {
-        require(amount <= allowList[recipient].mintable, 
-        "The Quan: insufficient mintables.");
-        
-        MintBooster[] memory boosters = allowList[recipient].boosters;
-        uint168 boostUltraBasisPts;
-        uint168 GLMR;
-        
-        if( boosters.length > 0){
-            for(uint16 i = 0; i < boosters.length; i++){
-                if(boosters[i].expiry >= block.timestamp){
-                    boostUltraBasisPts += boosters[i].ultraBasisPts;
-                }else{
-                    if(boosters[i].expiry != 0)
-                        delete allowList[recipient].boosters[i];
-                }
-            }
-        }
-
-        if( boostUltraBasisPts > 0)
-            GLMR = amount + ((amount * boostUltraBasisPts) / 10**7);
-        else
-            GLMR = amount;
-        
-        allowList[recipient].mintable -= amount;
-        balanceOf[recipient] += GLMR;
-        totalSupply += GLMR;
-
-        emit Minted(recipient, msg.sender, amount, GLMR);
-    }
-
-    function burn(uint256 amount) private {
-        totalSupply -= amount;
-        emit Transfer(msg.sender, address(0), amount);
-    }
 }
