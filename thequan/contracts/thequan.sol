@@ -160,103 +160,10 @@ contract TheQuan {
         emit Rewarded(msg.sender, checkin.toVest[1]);
         return (checkin.items, checkin.toVest[1]);
     }
-
-    function unlockVested()external returns(uint168){
-        uint168[2][] memory vesting = allowList[msg.sender].vesting;
-        uint168 vested;
-
-        for(uint32 i = 0; i < vesting.length; i++){
-            if(vesting[i][0] > 0 && vesting[i][0] < block.timestamp){
-                delete allowList[msg.sender].vesting[i];
-                allowList[msg.sender].mintable += vesting[i][1];
-                vested += vesting[i][1];
             }
         }
-
-        emit Vested(msg.sender, vested);
-        return vested;
     }
 
-    function cast(address asset, uint256 NFTID) external payable returns(uint256){
-        Magic memory magic = grimoire[asset];
-        Codex memory craft = spells[asset][NFTID];
-        require(craft.mage == msg.sender,
-        "The Quan: can only cast GLMR from NFTs you own.");
-        require(msg.value == castFee,
-        "The Quan: pay exact fee to cast GLMR.");
-
-        uint256   dawn = craft.dawn;
-        uint256  phase = craft.wave > 0 ? craft.wave : magic.circle;
-        uint256 lunars = (block.number - dawn) / phase;
-
-        if(lunars > 0){
-            uint256 emissions = craft.glow > 0 ? craft.glow : magic.sparkles;
-            spells[asset][NFTID].dawn = uint168(block.number - ((block.number - dawn) % phase));
-            allowList[msg.sender].mintable += lunars * emissions;
-
-            emit Cast(msg.sender, asset, msg.value, lunars * emissions);
-            return lunars * emissions;
-        }else {
-            revert("Must have at least 1 complete lunar.");
-        }
-    }
-
-    function forge(address recipient, uint256 mintable) external payable onlyDeities {
-        require(msg.value == forgeFee,
-        "The Quan: pay exact fee to forge new mintable.");
-
-        allowList[recipient].mintable += mintable;
-        emit Forged(recipient, msg.sender, msg.value, mintable);
-    }
-
-    function requestMint(uint168 amount) external payable {
-        require(msg.value == mintFee,
-        "The Quan: pay exact mint fee.");
-        
-        uint256 mintable = allowList[msg.sender].mintable;
-        require(amount <= mintable,
-        "The Quan: insufficient mintable balance.");
-
-        emit MintRequested(msg.sender, amount, msg.value);
-    }
-
-    function requestRedemption(uint168 amount) external {
-        require(amount <= balanceOf[msg.sender],
-        "The Quan: insufficient balance.");
-
-        uint256 liquidityScaled = ((address(this).balance + allocatedETH) / 3) * 10**10;
-        uint256 redeemableETH = ((liquidityScaled / totalSupply) * amount) / 10**10;
-        balanceOf[msg.sender] -= amount;
-        burn(amount);
-        
-        uint168[2] memory redemptionSlip = [uint168(block.timestamp + auditPeriod), uint168(redeemableETH)];
-        allowList[msg.sender].auditing.push(redemptionSlip);
-        emit RedemptionRequested(msg.sender, redemptionSlip[0], redemptionSlip[1]);
-    }
-
-    function fulfillRedemption(address payable recipient, uint16 slipID) external onlyDeities {
-        uint168[2] memory redemptionSlip = allowList[recipient].auditing[slipID];
-        require(redemptionSlip[0] < block.timestamp,
-        "The Quan: this redemption is still being audited.");
-
-        (bool success, ) = recipient.call{value: redemptionSlip[1]}("");
-        require(success,
-        "The Quan: transfer failed");
-
-        emit RedemptionCompleted(recipient, msg.sender, redemptionSlip[1]);
-    }
-
-    function withdraw(uint256 amount) external {
-        require(amount <= accountOf[msg.sender],
-        "The Quan: insufficient ETH balance.");
-
-        accountOf[msg.sender] -= amount;
-        (bool success, ) = payable(msg.sender).call{value: amount}("");
-        require(success,
-        "The Quan: transfer failed.");
-
-        emit Withdrawn(msg.sender, amount);
-    }
 
     // --- ERC20 Functions ---
 
