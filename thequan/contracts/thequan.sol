@@ -119,51 +119,11 @@ contract TheQuan {
 
     // --- Core Logic ---
 
-    function checkIn(address asset, uint256[] calldata tokens)external payable returns(uint168, uint168){
-        CheckInCache memory checkin;
-        checkin.formula = grimoire[asset];
-        checkin.fee = checkin.formula.checkInFee * tokens.length;
-        require(msg.value >= checkin.fee, 
-        "The Quan: submitted insufficient fee.");
-
-        checkin.vesting = allowList[msg.sender].vesting;
-        for (uint32 i = 0; i < tokens.length; i++){
-            if(IERC721(asset).ownerOf(tokens[i]) == msg.sender){
-                spells[asset][tokens[i]].dawn = uint168(block.number);
-                spells[asset][tokens[i]].mage = msg.sender;
-                emit CheckedIn(asset, msg.sender, tokens[i], checkin.fee);
-                checkin.items++;
-            }
-        }
-
-        if(checkin.items < tokens.length){
-            checkin.refund = checkin.formula.checkInFee * (uint168(tokens.length) - checkin.items);
-            accountOf[msg.sender] += checkin.refund;
-            emit Refunded(msg.sender, checkin.refund);
-        }
         
-        checkin.reward = (((checkin.formula.checkInFee * checkin.formula.rewardUltraBasisPts) / 10**7) + checkin.formula.checkInFee) * checkin.items;
-        checkin.toVest = [checkin.reward , uint168(block.timestamp) + checkin.formula.vestingPeriod];
-        grimoire[asset].checkInFee += ((checkin.formula.checkInFee * checkin.formula.surgeUltraBasisPts) / 10**7) * checkin.items;
-
-        for(uint32 i = 0; i < checkin.vesting.length; i++){
-            if(checkin.vesting[i][0] == 0){
-                checkin.rewarded = true;
-                allowList[msg.sender].vesting[i] = checkin.toVest;
-                break;
             }
-        }
-
-        if(!checkin.rewarded)
-            allowList[msg.sender].vesting.push(checkin.toVest);
-
-        emit Rewarded(msg.sender, checkin.toVest[1]);
-        return (checkin.items, checkin.toVest[1]);
-    }
             }
         }
     }
-
 
     // --- ERC20 Functions ---
 
