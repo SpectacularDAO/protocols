@@ -114,7 +114,7 @@ contract TheQuan {
     }
 
     receive() external payable{
-        revert("Only transfer ETH through checkIn(), cast(), forge(), or requestMint().");
+        revert TRANSFER2();
     }
 
     // --- Core Logic ---
@@ -128,11 +128,11 @@ contract TheQuan {
     // --- ERC20 Functions ---
 
     function transfer(address recipient, uint256 amount) external returns (bool){
-        require(recipient != address(0), 
-        "The Quan: can't transfer to 0x0, use burn() instead.");
+        if(recipient == address(0))
+            revert TRANSFER3();
 
-        require(amount <= balanceOf[msg.sender], 
-        "The Quan: insufficient balance.");
+        if(amount > balanceOf[msg.sender])
+            revert BALANCE1();
 
         balanceOf[msg.sender] -= amount;
         balanceOf[recipient] += amount;
@@ -142,10 +142,12 @@ contract TheQuan {
     }
 
     function approve(address spender, uint256 amount) public returns (bool){
-        require(spender != address(0), "The Quan: spender can't be 0x0.");
-        require(spender != msg.sender, "The Quan: spender can't be the same as owner.");
+        if(spender == address(0))
+            revert APPROVAL1();
 
         allowance[msg.sender][spender] = amount;
+        if(spender == msg.sender)
+            revert APPROVAL2();
 
         emit Approval(msg.sender, spender, amount);
         return true;
@@ -172,33 +174,33 @@ contract TheQuan {
                                      value,
                                      nonce,
                                      expiry))
+        if(owner == address(0))
+            revert SIGNATURE1();
+
+        if(deadline < block.timestamp)
+            revert SIGNATURE2();
+
         ));
 
-        require(owner == ecrecover(digest, v, r, s),
-        "The Quan: signer isn't owner.");
 
-        require(expiry >= block.timestamp,
-        "The Quan: expired signature.");
-
-        require(nonce == nonces[owner]++,
-        "The Quan: invalid nonce.");
+        if(owner != ecrecover(digest, v, r, s))
+            revert SIGNATURE3();
 
         allowance[owner][spender] = value;
         emit Approval(owner, spender, value);
     }
 
     function transferFrom(address tokensOwner, address recipient, uint256 amount) public returns (bool){
-        require(tokensOwner != recipient, 
-        "The Quan: tokens already in destination account.");
+        if(tokensOwner == recipient)
+            revert TRANSFER4();
 
-        require(amount <= balanceOf[tokensOwner],
-        "The Quan: insufficient balance.");
+        if(amount > balanceOf[tokensOwner])
+            revert BALANCE1();
 
-        require(amount <= allowance[tokensOwner][msg.sender],
-        "The Quan: transfer exceeds allowance.");
+        if(amount > allowance[tokensOwner][msg.sender])
+            revert APPROVAL3();
 
         allowance[tokensOwner][msg.sender] -= amount;
-
         balanceOf[tokensOwner] -= amount;
         balanceOf[recipient] += amount;
 
