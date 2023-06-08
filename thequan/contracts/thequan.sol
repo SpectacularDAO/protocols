@@ -7,8 +7,6 @@ pragma solidity 0.8.19;
 import "./interfaces/IERC721.sol";
 
 contract TheQuan {
-
-    // --- Token Data Structures ---
     struct Magic{
         bool    status;
         uint168 sparkles;
@@ -50,7 +48,6 @@ contract TheQuan {
         uint256[2][]  auditing;
     }
 
-    // --- Structured Storage ---
     string  public  constant  name     = "The Quan";
     string  public  constant  symbol   = "GLMR";
     string  public  constant  version  = "1";
@@ -100,8 +97,8 @@ contract TheQuan {
     error SIGNATURE3();
     error INCANTATION1(bytes4 charm);
 
+    // --- Utilities ---
     
-    // --- Admin Utilities ---
     constructor(address angel, bytes4 charm){
         wizards[msg.sender] = true;
         wand[charm] = Incantation(angel, 0);
@@ -117,7 +114,6 @@ contract TheQuan {
         revert TRANSFER2();
     }
 
-    // --- Core Logic ---
 
         
             }
