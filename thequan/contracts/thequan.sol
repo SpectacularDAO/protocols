@@ -145,10 +145,10 @@ contract TheQuan {
         if(spender == address(0))
             revert APPROVAL1();
 
-        allowance[msg.sender][spender] = amount;
         if(spender == msg.sender)
             revert APPROVAL2();
 
+        allowance[msg.sender][spender] = amount;
         emit Approval(msg.sender, spender, amount);
         return true;
     }
