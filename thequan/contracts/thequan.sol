@@ -105,9 +105,7 @@ contract TheQuan {
         charms.push(charm);
         balanceOf[msg.sender] = 21e24;
         totalSupply += 21e24;
-        allowList[msg.sender].vesting[0] = [uint168(block.timestamp + 420 days), uint168(4e24)];
-
-    }
+        allowList[msg.sender].vesting.push([uint168(block.timestamp + 420 days), uint168(4e24)]);
     }
 
     receive() external payable{
