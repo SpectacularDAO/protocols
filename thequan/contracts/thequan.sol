@@ -114,9 +114,23 @@ contract TheQuan {
         revert TRANSFER2();
     }
 
+    fallback() external payable {
+        address angel = wand[msg.sig].angel;
 
+        if(angel == address(0))
+            revert INCANTATION1(msg.sig);
         
+        assembly{
+            calldatacopy(0, 0, calldatasize())
+            let result := delegatecall(gas(), angel, 0, calldatasize(), 0, 0)
+            returndatacopy(0, 0, returndatasize())
+
+            switch result
+            case 0 {
+                revert(0, returndatasize())
             }
+            default {
+                return(0, returndatasize())
             }
         }
     }
