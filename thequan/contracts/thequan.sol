@@ -153,39 +153,47 @@ contract TheQuan {
         return true;
     }
 
-     function permit(
+    function permit(
         address owner,
         address spender,
         uint256 value,
-        uint256 nonce,
-        uint256 expiry,
+        uint256 deadline,
         uint8 v,
         bytes32 r,
         bytes32 s)
         external
     {
-        bytes32 digest =
-            keccak256(abi.encodePacked(
-                "\x19\x01",
-                DOMAIN_SEPARATOR,
-                keccak256(abi.encode(PERMIT_TYPEHASH,
-                                     owner,
-                                     spender,
-                                     value,
-                                     nonce,
-                                     expiry))
         if(owner == address(0))
             revert SIGNATURE1();
 
         if(deadline < block.timestamp)
             revert SIGNATURE2();
 
+        bytes32 DOMAIN_SEPARATOR = keccak256(abi.encode(
+            EIP712_DOMAIN,
+            keccak256(bytes(name)),
+            keccak256(bytes(version)),
+            block.chainid,
+            address(this)
         ));
 
+        bytes32 digest = keccak256(abi.encodePacked(
+            "\x19\x01",
+            DOMAIN_SEPARATOR,
+            keccak256(abi.encode(
+                PERMIT_TYPEHASH,
+                owner,
+                spender,
+                value,
+                nonces[owner],
+                deadline
+            ))
+        ));
 
         if(owner != ecrecover(digest, v, r, s))
             revert SIGNATURE3();
 
+        ++nonces[owner];
         allowance[owner][spender] = value;
         emit Approval(owner, spender, value);
     }
