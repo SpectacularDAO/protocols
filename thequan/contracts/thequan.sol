@@ -28,9 +28,9 @@ contract TheQuan{
     }
 
     struct Charge{
-        uint168 cast;
-        uint168 forge;
-        uint168 mint;
+        uint80 cast;
+        uint80 forge;
+        uint80 mint;
     }
 
     struct MintBooster{
