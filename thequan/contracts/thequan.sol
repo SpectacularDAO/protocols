@@ -21,9 +21,9 @@ contract TheQuan{
     }
 
     struct Codex{
-        uint168 dawn;
-        uint168 glow;
-        uint32  wave;
+        uint16  wave;
+        uint64  dawn;
+        uint96  glow;
         address mage;
     }
 
