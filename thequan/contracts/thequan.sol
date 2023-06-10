@@ -4,9 +4,8 @@
 
 pragma solidity 0.8.19;
 
-import "./interfaces/IERC721.sol";
+contract TheQuan{
 
-contract TheQuan {
     struct Magic{
         bool    status;
         uint168 sparkles;
