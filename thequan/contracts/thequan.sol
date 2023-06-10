@@ -43,8 +43,8 @@ contract TheQuan{
     struct MintPermit{
         uint256       mintable;
         MintBooster[] boosters;
-        uint256[2][]  vesting;
-        uint256[2][]  auditing;
+        uint168[2][]  vesting;
+        uint168[2][]  auditing;
     }
 
     string  public  constant  name     = "The Quan";
