@@ -7,13 +7,12 @@ pragma solidity 0.8.20;
 contract TheQuan{
 
     struct Magic{
-        bool    status;
-        uint168 sparkles;
-        uint168 checkInFee;
-        uint168 surgeUltraBasisPts;
-        uint168 rewardUltraBasisPts;
-        uint168 vestingPeriod;
-        uint32  circle;
+        bool   status;
+        uint16 circle;
+        uint16 vestingPeriod;
+        uint88 checkInFee;
+        uint96 sparkles;
+        uint24 rewardUltraBasisPts;
     }
 
     struct Incantation{
