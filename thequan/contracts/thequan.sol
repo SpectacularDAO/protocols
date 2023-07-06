@@ -31,7 +31,7 @@ contract TheQuan{
     }
 
     struct MintBooster{
-        uint24  ultraBasisPts;
+        uint24  K100BasisPts;
         uint8   boosterCode;
         uint16  expiry;
     }
