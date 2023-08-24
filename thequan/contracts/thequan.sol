@@ -4,7 +4,7 @@
 
 pragma solidity 0.8.20;
 
-contract TheQuan{
+contract TheKwan{
 
     struct Magic{
         bool    active;
