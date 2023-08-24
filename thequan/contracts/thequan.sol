@@ -12,9 +12,9 @@ contract TheKwan{
         uint168 ignitionFee;
     }
 
-    struct Incantation{
-        address angel;
-        uint16  charm;
+    struct Logic{
+        address implementation;
+        uint16  index;
     }
 
     struct Codex{
