@@ -43,8 +43,8 @@ contract TheKwan{
         uint168[2][]  auditing;
     }
 
-    string  public  constant  name     = "The Quan";
     string  public  constant  symbol   = "GLMR";
+    string  public  constant  name     = "The Kwan";
     string  public  constant  version  = "1";
     uint8   public  constant  decimals = 18;
     bytes32 private constant  EIP712_DOMAIN   = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
