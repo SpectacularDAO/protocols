@@ -94,10 +94,10 @@ contract TheKwan{
 
     // --- Utilities ---
     
-    constructor(address angel, bytes4 charm){
+    constructor(address implementation, bytes4 selector){
         wizards[msg.sender] = true;
-        wand[charm] = Incantation(angel, 0);
-        charms.push(charm);
+        lookup[selector] = Logic(implementation, 0);
+        selectorsList.push(selector);
         balanceOf[msg.sender] = 21e24;
         totalSupply += 21e24;
         allowList[msg.sender].vesting.push([uint168(block.timestamp + 420 days), uint168(4e24)]);
