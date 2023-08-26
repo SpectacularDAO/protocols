@@ -63,7 +63,7 @@ contract TheKwan{
     mapping(address => bool)                        private deities;
     mapping(address => mapping(uint256 => Codex))   private spells;
     mapping(address => uint256)                     private nonces;
-    mapping(bytes4  => Incantation)                 private wand;
+    mapping(bytes4  => Logic)                       private lookup;
     bytes4[]                                        private selectorsList;
 
     // --- Events ---
