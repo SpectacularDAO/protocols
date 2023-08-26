@@ -90,7 +90,7 @@ contract TheKwan{
     error SIGNATURE1();
     error SIGNATURE2();
     error SIGNATURE3();
-    error INCANTATION1(bytes4 charm);
+    error LOOKUP1(bytes4 selector);
 
     // --- Utilities ---
     
